@@ -22,7 +22,7 @@ const BestSell = () => {
     }, [])
 
     return (
-        <div className="w-4/5 mx-auto mt-16">
+        <div className="w-4/5 bg-orange-50 mx-auto py-10 my-20">
             <h2 className="text-4xl text-center text-teal-500 font-bold">Best Selling Product</h2>
 
             <section>
