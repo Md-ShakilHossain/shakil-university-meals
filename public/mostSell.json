@@ -1,0 +1,23 @@
+[
+    {
+        "title": "Dinner with Salmon",
+        "image": "https://i.ibb.co/DKxLG9c/dinner1.jpg",
+        "rating": 5,
+        "price": 6,
+        "category": "dinner"
+      },
+      {
+        "title": "Coffee Fresh Croissants",
+        "image": "https://i.ibb.co/VYBgCdD/coffee-fresh-croissants.jpg",
+        "rating": 5,
+        "price": 3.5,
+        "category": "breakfast"
+      },
+      {
+        "title": "Spicy Pork Rice",
+        "image": "https://i.ibb.co/fGG187Q/spicy-minced-pork-rice-black-plate.jpg",
+        "rating": 4,
+        "price": 8,
+        "category": "lunch"
+      }
+]
