@@ -4,6 +4,7 @@ import Banner from "../Banner/Banner";
 import BestSell from "../BestSell/BestSell";
 import NoFundReturn from "../NoFundRetuen/NoFundReturn";
 import MealsByCategory from "../MealsByCategory/MealsByCategory";
+import Membership from "../Membership/Membership";
 
 
 const Home = () => {
@@ -13,6 +14,7 @@ const Home = () => {
             <Banner></Banner>
             <MealsByCategory></MealsByCategory>
             <BestSell></BestSell>
+            <Membership></Membership>
             <NoFundReturn></NoFundReturn>
         </div>
     );
