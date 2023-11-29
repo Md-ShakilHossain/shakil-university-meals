@@ -9,8 +9,6 @@ import useAuth from "../../../Hooks/useAuth";
 const Navbar = () => {
 
     const { user, logOut } = useAuth();
-    console.log(user);
-    
 
     const links = <>
         <li><NavLink className={({ isActive, isPending }) =>
@@ -85,7 +83,10 @@ const Navbar = () => {
                                         <p className="text-center p-3 text-xl">{user.displayName}</p>
                                     }
 
-                                    <Dropdown.Item><Link to="/userHome">Dashboard</Link></Dropdown.Item>
+                                    { user &&
+                                        <Dropdown.Item><Link to="/dashboard/userHome">Dashboard</Link></Dropdown.Item>
+                                    }
+
                                     <Dropdown.Item>
                                         <Button
                                         onClick={handleLogOut}

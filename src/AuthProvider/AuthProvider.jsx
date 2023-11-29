@@ -1,8 +1,9 @@
 import { createContext, useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import auth from "../Firebase/firebase.config";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 export const AuthContext = createContext();
 
@@ -10,15 +11,31 @@ const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const googleProvider = new GoogleAuthProvider();
+    const axiosPublic = useAxiosPublic();
 
     const createUser = (email, password) => {
         setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
     }
+
+    const updateUserProfile = (name, photo) => {
+        return updateProfile(auth.currentUser, {
+            displayName: name,
+            photoURL: photo
+        });
+    }
+
     const loginUser = (email, password) => {
         setLoading(true);
         return signInWithEmailAndPassword(auth, email, password);
     }
+
+    const googleSignIn = () => {
+        setLoading(true);
+        return signInWithPopup(auth, googleProvider);
+    }
+
     const logOut = () => {
         setLoading(true);
         return signOut(auth);
@@ -27,19 +44,37 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
-            setLoading(false);
-        });
+            if (currentUser) {
+                // Create Token and save
+                const userInfo = { email: currentUser.email };
+                axiosPublic.post('/jwt', userInfo)
+                    .then(res => {
+                        if (res.data.token) {
+                            localStorage.setItem('access-token', res.data.token);
+                            setLoading(false);
+                        }
+                    })
+            }
+            else {
+                // Remove token
+                localStorage.removeItem('access-token');
+                setLoading(false);
+            }
+
+        })
         return () => {
-            unsubscribe();
+            return unsubscribe;
         }
-    },[])
+    }, [axiosPublic])
 
     const data = {
         user,
         createUser,
         loginUser,
         logOut,
-        loading
+        loading,
+        googleSignIn,
+        updateUserProfile
     }
 
     return (

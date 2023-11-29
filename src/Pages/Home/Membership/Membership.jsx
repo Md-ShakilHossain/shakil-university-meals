@@ -15,7 +15,7 @@ const Membership = () => {
                     <hr className="w-1/2 mx-auto border-t-2 border-solid border-black" />
                     <p className="text-gray-700 text-center mt-4">Access to basic meals</p>
                     <p className="text-green-600 text-center font-bold">$50/month</p>
-                    <Link><Button className="w-full mt-6">Upgrade to Silver</Button></Link>
+                    <Link to="/checkout/silver"><Button className="w-full mt-6">Upgrade to Silver</Button></Link>
                 </div>
                 {/* Gold Membership Card */}
                 <div className="card bg-orange-300 h-60 p-8 rounded-md mb-8">
@@ -23,7 +23,7 @@ const Membership = () => {
                     <hr className="w-1/2 mx-auto border-t-2 border-solid border-black" />
                     <p className="text-gray-700 text-center mt-4">Access to standard meals</p>
                     <p className="text-yellow-800 text-center font-bold">$80/month</p>
-                    <Link><Button className="w-full mt-6">Upgrade to Gold</Button></Link>
+                    <Link to="/checkout/gold"><Button className="w-full mt-6">Upgrade to Gold</Button></Link>
                 </div>
 
                 {/* Platinum Membership Card */}
@@ -32,7 +32,7 @@ const Membership = () => {
                     <hr className="w-1/2 mx-auto border-t-2 border-solid border-black" />
                     <p className="text-gray-700 text-center mt-4">Access to premium meals</p>
                     <p className="text-blue-800 text-center font-bold">$120/month</p>
-                    <Link><Button className="w-full mt-6">Upgrade to Platinum</Button></Link>
+                    <Link to="/checkout/platinum"><Button className="w-full mt-6">Upgrade to Platinum</Button></Link>
                 </div>
             </div>
         </div>

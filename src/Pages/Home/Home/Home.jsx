@@ -2,9 +2,9 @@
 import { Helmet } from "react-helmet-async";
 import Banner from "../Banner/Banner";
 import BestSell from "../BestSell/BestSell";
-import NoFundReturn from "../NoFundRetuen/NoFundReturn";
 import MealsByCategory from "../MealsByCategory/MealsByCategory";
 import Membership from "../Membership/Membership";
+import NoFundReturn from "../NoFundReturn/NoFundReturn";
 
 
 const Home = () => {

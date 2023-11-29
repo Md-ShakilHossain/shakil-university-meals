@@ -4,6 +4,12 @@ import ErrorPage from "../Pages/ErrorPage/ErrorPage.Jsx";
 import Root from "../Layout/Root";
 import Login from "../Pages/Login & Register/Login";
 import Register from "../Pages/Login & Register/Register";
+import MealDetails from "../Components/MealDetails/MealDetails";
+import PrivateRoute from "./PrivateRoute";
+import Dashboard from "../Layout/Dashboard";
+import UserHome from "../Pages/Dashboard/userHome/userHome";
+import UserProfile from "../Pages/Dashboard/UserProfile/UserProfile";
+import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
 
 
 
@@ -27,9 +33,34 @@ const router = createBrowserRouter([
         {
             path: "register",
             element: <Register></Register>
+        },
+        {
+          path: "meal/:id",
+          element: <MealDetails></MealDetails>,
+          loader: ({params})=> fetch(`http://localhost:5000/meal/${params.id}`)
         }
       ]
     },
+    {
+      path: "dashboard",
+      element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+      errorElement:<ErrorPage></ErrorPage>,
+      children: [
+        {
+          path: "userHome",
+          element:<UserHome></UserHome>
+        },
+        {
+          path: "userProfile",
+          element: <UserProfile></UserProfile>
+        },
+        // admin only routes
+        {
+          path: "manageUsers",
+          element:<ManageUsers></ManageUsers>
+        }
+      ]
+    }
   ]);
 
   export default router;

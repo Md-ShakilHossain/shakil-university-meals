@@ -1,19 +1,23 @@
 import { Rating } from "@smastrom/react-rating";
-import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 import { Button, Card } from "flowbite-react";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { Link } from "react-router-dom";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
 const MealsByCategory = () => {
-    const [menu, setMenu] = useState([]);
+    const axiosPublic = useAxiosPublic();
     const [activeTab, setActiveTab] = useState(0);
 
-
-    useEffect(() => {
-        axios.get('menu.json')
-            .then(res => setMenu(res.data))
-    }, []);
+    const {data: menu=[]} = useQuery({
+        queryKey: ['menu'],
+        queryFn: async()=>{
+            const res = await axiosPublic.get('/meal');
+            return res.data;
+        }
+    });
+    
 
     const breakfast = menu.filter(item => item.category === 'breakfast');
     const lunch = menu.filter(item => item.category === 'lunch');
@@ -157,9 +161,6 @@ const MealsByCategory = () => {
                                 </Card>)
                             }
                         </div>
-                    </TabPanel>
-                    <TabPanel>
-
                     </TabPanel>
                 </div>
             </Tabs>

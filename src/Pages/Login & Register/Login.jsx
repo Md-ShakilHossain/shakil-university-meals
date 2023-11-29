@@ -1,103 +1,97 @@
-import { Button, Card, Checkbox, Label, TextInput } from "flowbite-react";
+import { Card } from "flowbite-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import { useState } from "react";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import Swal from "sweetalert2";
-import auth from "../../Firebase/firebase.config";
 import { Helmet } from "react-helmet-async";
+import LoginWithGoogle from "../Shared/LoginWithGoogle/LoginWithGoogle";
+import { useForm } from "react-hook-form";
 
 
 const Login = () => {
     const { loginUser } = useAuth();
     const [error, setError] = useState('');
-
-    const provider = new GoogleAuthProvider();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const location = useLocation();
     const navigate = useNavigate();
 
-    const handleLogin = e => {
-        e.preventDefault();
-        const form = new FormData(e.currentTarget);
-        const email = form.get('email');
-        const password = form.get('password');
-        // const user = { email, password };
-        // console.log(user);
-        setError('');
+    const from = location.state?.from?.pathname || "/";
 
-        loginUser(email, password)
+    const onSubmit = data => {
+        loginUser(data.email, data.password)
             .then(result => {
-                console.log(result.user);
+                const loggedUser = result.user;
+                console.log(loggedUser);
+                setError('');
                 Swal.fire({
-                    title: 'Success!',
-                    text: 'Login Successful',
-                    icon: 'success',
-                    confirmButtonText: 'Okay'
-                })
-                setTimeout(() => {
-                    navigate(location?.state ? location.state : '/');
-                }, 1000);
+                    position: "top-start",
+                    icon: "success",
+                    title: "Login Successfully",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                reset();
+                navigate(from, { replace: true });
 
-
-            })
-            .catch(() => {
-                setError('Invalid Email or Password')
-            })
-    }
-
-    const handleLoginWithGoogle = () => {
-        signInWithPopup(auth, provider)
-            .then(result => {
-                console.log(result.user);
-
-                navigate(location?.state ? location.state : '/');
             })
             .catch(error => {
                 console.error(error);
-            })
+                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                    setError('Invalid email or password');
+                } else {
+                    setError('Invalid email or password');
+                }
+            });
     }
+    console.log(errors);
+
 
     return (
-        <div className="w-4/5 mx-auto mt-16 py-10 bg-slate-300">
+        <div className="w-4/5 mx-auto mt-16 py-10 bg-slate-300 rounded-lg">
             <Helmet>
                 <title>S.U_MeaLs | Login</title>
             </Helmet>
-            <h3 className="text-4xl text-teal-700 font-bold text-center mb-4">Please Login</h3>
+
             <Card className="max-w-sm mx-auto">
-                <form onSubmit={handleLogin}
-                    className="flex flex-col gap-4">
+                <form onSubmit={handleSubmit(onSubmit)}
+                    className="card-body">
+                    <h3 className="text-4xl text-teal-700 font-bold text-center mb-4">Please Login</h3>
+
+                    <div className="form-control flex flex-col mt-2">
+                        <label className="label">
+                            <span className="label-text">Email</span>
+                        </label>
+                        <input type="email" placeholder="email"
+                            {...register('email', { required: true })}
+                            className="input input-bordered mt-2" />
+                    </div>
+                    <div className="form-control flex flex-col mt-2">
+                        <label className="label">
+                            <span className="label-text">Password</span>
+                        </label>
+                        <input type="password" placeholder="password"
+                            {...register('password',
+                                { required: true })}
+                            className="input input-bordered mt-2" />
+                            
+                    </div>
+
                     <div>
-                        <div className="mb-2 block">
-                            <Label value="Your email" />
-                        </div>
-                        <TextInput name="email" type="email" placeholder="Email Here" required />
+                    {
+                        error && <p className="text-red-500"> {error}</p>
+                    }
+
                     </div>
-                    <div>
-                        <div className="mb-2 block">
-                            <Label value="Your password" />
-                        </div>
-                        <TextInput name="password" type="password" placeholder="Password Here" required />
-                        <div>
-                            {
-                                error && <p className="text-red-500">{error}</p>
-                            }
-                        </div>
+                    <div className="form-control mt-6">
+                        <input className="bg-teal-500 hover:bg-teal-700 cursor-pointer w-full py-2 rounded-lg text-white font-semibold" type="submit" value="Submit" />
                     </div>
-                    <div className="flex items-center gap-2">
-                        <Checkbox />
-                        <Label>Remember me</Label>
-                    </div>
-                    <Button type="submit">Submit</Button>
                 </form>
 
             </Card>
             <div>
                 <h3 className="mt-5 text-2xl text-center font-semibold">OR</h3>
-                <Button
-                onClick={handleLoginWithGoogle}
-                className="mt-4 max-w-sm mx-auto">Login with Google 
-                </Button>
+                <LoginWithGoogle></LoginWithGoogle>
             </div>
             <p className="text-center mt-8">New to DreamJobs? <span className="font-bold"><Link to={`/register`}>Register</Link></span></p>
         </div>
