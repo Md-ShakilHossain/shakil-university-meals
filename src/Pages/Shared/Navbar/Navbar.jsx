@@ -2,6 +2,7 @@ import { Button, Dropdown } from "flowbite-react";
 import { Link, NavLink } from "react-router-dom";
 import { FaBell } from "react-icons/fa";
 import useAuth from "../../../Hooks/useAuth";
+import useAdmin from "../../../Hooks/useAdmin";
 
 
 
@@ -9,6 +10,7 @@ import useAuth from "../../../Hooks/useAuth";
 const Navbar = () => {
 
     const { user, logOut } = useAuth();
+    const [isAdmin] = useAdmin();
 
     const links = <>
         <li><NavLink className={({ isActive, isPending }) =>
@@ -83,8 +85,11 @@ const Navbar = () => {
                                         <p className="text-center p-3 text-xl">{user.displayName}</p>
                                     }
 
-                                    { user &&
+                                    { user && !isAdmin &&
                                         <Dropdown.Item><Link to="/dashboard/userHome">Dashboard</Link></Dropdown.Item>
+                                    }
+                                    { user && isAdmin &&
+                                        <Dropdown.Item><Link to="/dashboard/adminHome">Dashboard</Link></Dropdown.Item>
                                     }
 
                                     <Dropdown.Item>

@@ -10,6 +10,9 @@ import Dashboard from "../Layout/Dashboard";
 import UserHome from "../Pages/Dashboard/userHome/userHome";
 import UserProfile from "../Pages/Dashboard/UserProfile/UserProfile";
 import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
+import AdminHome from "../Pages/Dashboard/AdminHome/AdminHome";
+import AdminRoute from "./AdminRoute";
+import AddMeal from "../Pages/Dashboard/addMeal/addMeal";
 
 
 
@@ -56,8 +59,16 @@ const router = createBrowserRouter([
         },
         // admin only routes
         {
+          path: "adminHome",
+          element: <AdminRoute><AdminHome></AdminHome></AdminRoute>
+        },
+        {
           path: "manageUsers",
-          element:<ManageUsers></ManageUsers>
+          element:<AdminRoute><ManageUsers></ManageUsers></AdminRoute>
+        },
+        {
+          path: "addMeal",
+          element: <AdminRoute><AddMeal></AddMeal></AdminRoute>
         }
       ]
     }

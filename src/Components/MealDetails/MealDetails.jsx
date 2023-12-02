@@ -1,13 +1,38 @@
 import { Rating } from "@smastrom/react-rating";
 import { Button } from "flowbite-react";
 import { FaThumbsUp } from "react-icons/fa";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 
 const MealDetails = () => {
 
     const item = useLoaderData();
+    const { user } = useAuth();
+    const navigate = useNavigate();
+    
+    
     const { image, title, adminName, description, ingredients, time, rating, reviews } = item;
+
+    const handleMealRequest = () => {
+        if (!user) {
+            
+            Swal.fire({
+                title: "Login Require",
+                text: "To request a meal you need to login first",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ok, Login First"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate("/login", { state: { from: location} });
+                }
+            });
+        }
+    }
 
     return (
         <div className="w-4/5 mx-auto mt-12">
@@ -22,25 +47,27 @@ const MealDetails = () => {
 
                     <p><span className="text-xl font-semibold">Description:</span> {description}</p>
 
-                    <p><span className="text-xl font-semibold">Ingredients:</span> {ingredients.map((ingredient,i) => <span key={i}>{ingredient}, </span> )}</p>
+                    <p><span className="text-xl font-semibold">Description:</span> {ingredients}</p>
 
                     <p><span className="text-xl font-semibold">Post Time:</span> {time}</p>
 
                     <div className="flex">
                         <p className="text-xl font-semibold mr-5">Rating:</p>
                         <Rating
-                                    style={{ maxWidth: 120 }}
-                                    value={rating}
-                                    readOnly
-                                />
+                            style={{ maxWidth: 120 }}
+                            value={rating}
+                            readOnly
+                        />
                     </div>
 
                     <p><span className="text-xl font-semibold">Reviews:</span> {reviews}</p>
 
                     <div className="flex justify-evenly my-4">
-                    <Link ><Button className="w-fit">Request the Meal</Button></Link>
+                        <Link ><Button
+                            onClick={handleMealRequest}
+                            className="w-fit">Request the Meal</Button></Link>
 
-                    <Button><FaThumbsUp className="text-2xl"></FaThumbsUp></Button>
+                        <Button><FaThumbsUp className="text-2xl"></FaThumbsUp></Button>
                     </div>
                 </div>
             </div>

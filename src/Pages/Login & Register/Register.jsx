@@ -56,7 +56,7 @@ const Register = () => {
     return (
         <div className="w-4/5 mx-auto mt-16 py-10 bg-slate-300 rounded-lg">
             <Helmet>
-                <title>DreamJob | Register</title>
+                <title>S.U_MeaLs | Register</title>
             </Helmet>
 
             <Card className="max-w-sm mx-auto">

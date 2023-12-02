@@ -1,13 +1,11 @@
 import { FaClipboardList, FaEye, FaUserTie } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
-
-// import useAdmin from "../Hooks/useAdmin";
-
+import useAdmin from "../Hooks/useAdmin";
 
 const Dashboard = () => {
 
-    // TODO: get isAdmin value from the database
-    const isAdmin = true;
+    // get isAdmin value from the database
+    const [isAdmin] = useAdmin();
 
     return (
         <div className="flex">
