@@ -13,6 +13,9 @@ import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
 import AdminHome from "../Pages/Dashboard/AdminHome/AdminHome";
 import AdminRoute from "./AdminRoute";
 import AddMeal from "../Pages/Dashboard/addMeal/addMeal";
+import AllMeals from "../Pages/Dashboard/AllMeals/AllMeals";
+import UpdateMeal from "../Components/updateMeal/UpdateMeal";
+import UpcomingMeals from "../Pages/Dashboard/UpcomingMeals/UpcomingMeals";
 
 
 
@@ -69,6 +72,19 @@ const router = createBrowserRouter([
         {
           path: "addMeal",
           element: <AdminRoute><AddMeal></AddMeal></AdminRoute>
+        },
+        {
+          path: "allMeals",
+          element: <AdminRoute><AllMeals></AllMeals></AdminRoute>
+        },
+        {
+          path: "updateMeal/:id",
+          element: <AdminRoute><UpdateMeal></UpdateMeal></AdminRoute>,
+          loader: ({params}) => fetch(`http://localhost:5000/meal/${params.id}`)
+        },
+        {
+          path: "upcomingMeals",
+          element: <AdminRoute><UpcomingMeals></UpcomingMeals></AdminRoute>
         }
       ]
     }
