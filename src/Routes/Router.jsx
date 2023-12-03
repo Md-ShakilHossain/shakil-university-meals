@@ -16,6 +16,13 @@ import AddMeal from "../Pages/Dashboard/addMeal/addMeal";
 import AllMeals from "../Pages/Dashboard/AllMeals/AllMeals";
 import UpdateMeal from "../Components/updateMeal/UpdateMeal";
 import UpcomingMeals from "../Pages/Dashboard/UpcomingMeals/UpcomingMeals";
+import Payment from "../Pages/Payment/Payment";
+import RequestedMeal from "../Pages/Dashboard/RequestedMeal/RequestedMeal";
+import MyReviews from "../Pages/Dashboard/MyReviews/MyReviews";
+import UpdateReview from "../Components/UpdateReview/UpdateReview";
+import AdminProfile from "../Pages/Dashboard/AdminProfile/AdminProfile";
+import UpcomingMeal from "../Pages/UpcomingMeal/UpcomingMeal";
+import Meals from "../Pages/Meals/Meals";
 
 
 
@@ -44,6 +51,19 @@ const router = createBrowserRouter([
           path: "meal/:id",
           element: <MealDetails></MealDetails>,
           loader: ({params})=> fetch(`http://localhost:5000/meal/${params.id}`)
+        },
+        {
+          path: "checkout/:name",
+          element: <PrivateRoute><Payment></Payment></PrivateRoute>,
+          loader: ({params}) => fetch(`http://localhost:5000/package/${params.name}`)
+        },
+        {
+          path: "upcomingMeal",
+          element: <UpcomingMeal></UpcomingMeal>
+        },
+        {
+          path: "meals",
+          element: <Meals></Meals>
         }
       ]
     },
@@ -60,10 +80,27 @@ const router = createBrowserRouter([
           path: "userProfile",
           element: <UserProfile></UserProfile>
         },
+        {
+          path: "requestedMeal",
+          element: <RequestedMeal></RequestedMeal>
+        },
+        {
+          path: "myReviews",
+          element: <MyReviews></MyReviews>
+        },
+        {
+          path: "updateReview/:id",
+          element: <UpdateReview></UpdateReview>,
+          loader: ({params})=> fetch(`http://localhost:5000/allReviews/${params.id}`)
+        },
         // admin only routes
         {
           path: "adminHome",
           element: <AdminRoute><AdminHome></AdminHome></AdminRoute>
+        },
+        {
+          path: "adminProfile",
+          element: <AdminRoute><AdminProfile></AdminProfile></AdminRoute>
         },
         {
           path: "manageUsers",

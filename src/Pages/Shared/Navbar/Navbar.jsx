@@ -23,7 +23,7 @@ const Navbar = () => {
 
         <li><NavLink className={({ isActive, isPending }) =>
             `text-sm md:text-lg lg:text-xl ${isPending ? "pending" : isActive ? "underline text-[#FF444A]" : ""}`
-        } to='/upcomingMeals'>Upcoming Meals</NavLink></li>
+        } to='/upcomingMeal'>Upcoming Meals</NavLink></li>
 
         <li><NavLink className={({ isActive, isPending }) =>
             `text-sm md:text-lg lg:text-xl ${isPending ? "pending" : isActive ? "underline text-[#FF444A]" : ""}`

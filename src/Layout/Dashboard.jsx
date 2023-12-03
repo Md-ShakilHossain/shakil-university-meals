@@ -34,9 +34,9 @@ const Dashboard = () => {
                             <>
                                 <div className="bg-white flex justify-center py-2 rounded-full"><li className="text-teal-500 font-semibold"><NavLink className="flex items-center" to='/dashboard/userProfile'> <span><FaUserTie className="mr-2"></FaUserTie></span> My Profile</NavLink></li></div>
 
-                                <div className="bg-white flex justify-center py-2 rounded-full my-4"><li className="text-teal-500 font-semibold"><NavLink className="flex items-center" to='/dashboard/userProfile'> <span><FaClipboardList className="mr-2"></FaClipboardList></span> Requested Meals</NavLink></li></div>
+                                <div className="bg-white flex justify-center py-2 rounded-full my-4"><li className="text-teal-500 font-semibold"><NavLink className="flex items-center" to='/dashboard/requestedMeal'> <span><FaClipboardList className="mr-2"></FaClipboardList></span> Requested Meals</NavLink></li></div>
 
-                                <div className="bg-white flex justify-center py-2 rounded-full mb-6"><li className="text-teal-500 font-semibold"><NavLink className="flex items-center" to='/dashboard/userProfile'> <span><FaEye className="mr-2"></FaEye></span> My Reviews</NavLink></li></div>
+                                <div className="bg-white flex justify-center py-2 rounded-full mb-6"><li className="text-teal-500 font-semibold"><NavLink className="flex items-center" to='/dashboard/myReviews'> <span><FaEye className="mr-2"></FaEye></span> My Reviews</NavLink></li></div>
 
 
                             </>

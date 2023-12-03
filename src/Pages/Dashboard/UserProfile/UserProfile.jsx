@@ -7,7 +7,7 @@ const UserProfile = () => {
     const { user } = useAuth();
     const axiosPublic = useAxiosPublic();
 
-    const { data: singleUser = {} } = useQuery({
+    const { data: singleUser = [] } = useQuery({
         queryKey: ['user', user?.email],
         queryFn: async () => {
             const res = await axiosPublic.get(`/users?email=${user.email}`);
@@ -15,25 +15,27 @@ const UserProfile = () => {
         }
     });
 
+
+
     return (
         <div>
             <div className="flex justify-evenly">
                 <div className="flex-1">
                     <h3 className="text-teal-500 text-2xl text-center font-bold">Welcome Again {user.displayName}</h3>
                     <br />
-                    <hr className="w-1/2 mx-auto border-t-2 border-solid border-black" />
+                    <hr className="w-1/2 mx-auto border-t-2 border-solid border-black mb-6" />
                 </div>
-                { singleUser.badge === 'Bronze' &&
+                {singleUser[0]?.badge === 'Bronze' &&
                     <div className="w-32">
-                    <img src="https://i.ibb.co/bJxd1kp/bronze.png" className="w-24" />
-                    <p className="text-orange-600 ml-3 text-xl font-bold">Bronze</p>
-                </div>
+                        <img src="https://i.ibb.co/S0bkmQp/bronze.png" className="w-21" />
+                        <p className="text-orange-600 ml-3 text-xl font-bold">Bronze</p>
+                    </div>
                 }
-                { singleUser.badge === 'Gold' &&
+                {singleUser[0]?.badge === 'Gold' &&
                     <div className="w-32">
-                    <img src="https://i.ibb.co/3CGrHZG/gold.png" className="w-24" />
-                    <p className="text-orange-600 ml-3 text-xl font-bold">Gold</p>
-                </div>
+                        <img src="https://i.ibb.co/4JKNNBJ/gold.png" className="w-24" />
+                        <p className="text-orange-600 ml-3 text-xl font-bold">Gold</p>
+                    </div>
                 }
             </div>
             <div className="flex justify-center">
@@ -42,7 +44,7 @@ const UserProfile = () => {
 
             <p className="text-teal-500 text-center text-xl font-bold mt-6">Name: {user.displayName}</p>
             <p className="text-teal-500 text-center text-xl font-bold">Email: {user.email}</p>
-            <p className="text-teal-500 text-center text-xl font-bold">Badge: {singleUser.badge}</p>
+            <p className="text-teal-500 text-center text-xl font-bold">Badge: {singleUser[0]?.badge}</p>
 
         </div>
     );
