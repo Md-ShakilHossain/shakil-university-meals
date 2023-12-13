@@ -50,12 +50,12 @@ const router = createBrowserRouter([
         {
           path: "meal/:id",
           element: <MealDetails></MealDetails>,
-          loader: ({params})=> fetch(`http://localhost:5000/meal/${params.id}`)
+          loader: ({params})=> fetch(`https://shakil-university-meals-server.vercel.app/meal/${params.id}`)
         },
         {
           path: "checkout/:name",
           element: <PrivateRoute><Payment></Payment></PrivateRoute>,
-          loader: ({params}) => fetch(`http://localhost:5000/package/${params.name}`)
+          loader: ({params}) => fetch(`https://shakil-university-meals-server.vercel.app/package/${params.name}`)
         },
         {
           path: "upcomingMeal",
@@ -91,7 +91,7 @@ const router = createBrowserRouter([
         {
           path: "updateReview/:id",
           element: <UpdateReview></UpdateReview>,
-          loader: ({params})=> fetch(`http://localhost:5000/allReviews/${params.id}`)
+          loader: ({params})=> fetch(`https://shakil-university-meals-server.vercel.app/allReviews/${params.id}`)
         },
         // admin only routes
         {
@@ -117,7 +117,7 @@ const router = createBrowserRouter([
         {
           path: "updateMeal/:id",
           element: <AdminRoute><UpdateMeal></UpdateMeal></AdminRoute>,
-          loader: ({params}) => fetch(`http://localhost:5000/meal/${params.id}`)
+          loader: ({params}) => fetch(`https://shakil-university-meals-server.vercel.app/meal/${params.id}`)
         },
         {
           path: "upcomingMeals",

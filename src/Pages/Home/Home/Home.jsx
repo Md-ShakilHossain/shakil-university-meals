@@ -5,6 +5,7 @@ import BestSell from "../BestSell/BestSell";
 import MealsByCategory from "../MealsByCategory/MealsByCategory";
 import Membership from "../Membership/Membership";
 import NoFundReturn from "../NoFundReturn/NoFundReturn";
+import Faq from "../FAQ/FAQ";
 
 
 const Home = () => {
@@ -16,6 +17,7 @@ const Home = () => {
             <BestSell></BestSell>
             <Membership></Membership>
             <NoFundReturn></NoFundReturn>
+            <Faq></Faq>
         </div>
     );
 };
